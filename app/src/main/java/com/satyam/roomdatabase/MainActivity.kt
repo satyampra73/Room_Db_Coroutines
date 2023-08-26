@@ -8,6 +8,7 @@ import android.view.View
 import androidx.room.Room
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import java.util.Date
 
 class MainActivity : AppCompatActivity() {
     lateinit var database: ContactDatabase
@@ -16,9 +17,10 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         //can view database details on App Inspection - DatabaseInspector
-        database=Room.databaseBuilder(applicationContext,ContactDatabase::class.java,"contactDB").build()
+        database= ContactDatabase.getDatabase(this)
+//        database=Room.databaseBuilder(applicationContext,ContactDatabase::class.java,"contactDB").build()
         GlobalScope.launch {
-        database.contactDao().insertContact(Contact(0,"Satyam","6565656565"))
+        database.contactDao().insertContact(Contact(0,"Satyam","6565656565",Date()))
         }
 
     }
